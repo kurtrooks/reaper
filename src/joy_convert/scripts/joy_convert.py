@@ -15,14 +15,17 @@ class joy_convert(object):
         self.maxAngle = rospy.get_param('~maxAngle',180)
         self.invert = rospy.get_param('~invert',False)
 
+        self.halfRange = (self.maxAngle - self.minAngle) / 2.0
+        self.midAngle = self.minAngle + self.halfRange
+
         rospy.Subscriber('joy',Joy,self.setJoy)
         self.servoPub = rospy.Publisher('servo',UInt16,queue_size=10)
 
     def setJoy(self,msg):
         self.joy = msg
         left_stick = msg.axes[self.chNum]
-        left_stick += 1.0 
-        angle = self.minAngle + left_stick*(float(self.maxAngle/2.0))
+        angle = self.midAngle + left_stick*self.halfRange
+
         if self.invert:
             angle = self.maxAngle - angle
         self.servoPub.publish(int(angle))
