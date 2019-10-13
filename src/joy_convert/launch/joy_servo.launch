@@ -35,7 +35,7 @@
         <param name="minAngle" value="550" />
         <param name="maxAngle" value="2400" />
 
-i       <remap from="joy" to="/joy" />
+        <remap from="joy" to="/joy" />
         <remap from="servo" to="/hip_servo" />
     </node>
 
