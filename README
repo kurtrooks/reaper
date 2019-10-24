@@ -1,1 +1,12 @@
-catkin_make install
+# To build ROS modules
+> catkin_make install
+
+# To record audio
+> rec filename.wav
+
+# To playback files w/ modulation
+>  play test.wav pitch -600 reverb 
+
+# Apply voice change to input file, produce output file
+> sox input.wav output.wav pitch -600 reverb
+
