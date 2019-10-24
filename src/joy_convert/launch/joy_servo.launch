@@ -13,17 +13,17 @@
     </node>
 
     <node ns="hip" name="sin_gen" pkg="joy_convert" type="sin_generator.py" output="screen" >
-        <param name="amplitude" value="20" />
-        <param name="outputOffset" value="60" />
+        <param name="amplitude" value="1000" />
+        <param name="outputOffset" value="1450" />
         <param name="sin_period" value="4.0" />
         <param name="start_running" value="True" />
-        <remap from="waveform" to="/hip_servo_NC" />
+        <remap from="waveform" to="/hip_servo2_NC" />
     </node>
 
     <node ns="shoulder" name="joy_convert" pkg="joy_convert" type="joy_convert.py" output="screen" >
         <param name="chNum" value="1" />
-        <param name="minAngle" value="0" />
-        <param name="maxAngle" value="120" />
+        <param name="minAngle" value="550" />
+        <param name="maxAngle" value="2400" />
         <param name="invert" value="True" />
 
         <remap from="joy" to="/joy" />
@@ -32,8 +32,8 @@
 
     <node ns="hip" name="joy_convert" pkg="joy_convert" type="joy_convert.py" output="screen" >
         <param name="chNum" value="3" />
-        <param name="minAngle" value="0" />
-        <param name="maxAngle" value="120" />
+        <param name="minAngle" value="550" />
+        <param name="maxAngle" value="2400" />
 
 i       <remap from="joy" to="/joy" />
         <remap from="servo" to="/hip_servo" />
