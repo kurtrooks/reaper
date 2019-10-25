@@ -11,5 +11,5 @@ fi
 if [[ "$1" ]]; then
     echo "$1 $2" >$pipe
 else
-    echo "Hello from $$" >$pipe
+    exit
 fi
