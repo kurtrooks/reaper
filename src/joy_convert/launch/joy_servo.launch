@@ -43,4 +43,8 @@
         <param name="port" value="/dev/ttyACM0" />
     </node>
 
+    <node name="image_transform" pkg="joy_convert" type="image_transform.py" output="screen">
+    </node>
+
+
 </launch>
