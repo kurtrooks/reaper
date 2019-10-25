@@ -31,11 +31,13 @@ class image_transform(object):
 
     def setX(self,msg):
 	self.myX = msg.data
+
     def setY(self,msg):
 	self.myY = msg.data
 
     def interp(self,xval):
         return xval / (self.midPixel)
+
     def angleinterp(self,data):
         """
         0-->2 input
