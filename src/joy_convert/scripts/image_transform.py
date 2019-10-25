@@ -8,7 +8,7 @@ class image_transform(object):
 
     def __init__(self):
         rospy.init_node('image_transform')
-        self.hz = rospy.get_param('~hz',10.0)
+        self.hz = rospy.get_param('~hz',40.0)
         self.rate = rospy.Rate(self.hz)
         self.minAngle = rospy.get_param('~minAngle',0)
         self.maxAngle = rospy.get_param('~maxAngle',180)
@@ -45,17 +45,21 @@ class image_transform(object):
 
     def setPub(self):
 	if(self.myX is not None and self.myY is not None):
-            myMessage = interp(self.myX)
-            myMessage = angleinterp(myMessage)
+            myMessage = self.interp(self.myX)
+            myMessage = self.angleinterp(myMessage)
+        else:
+            return
 
         if self.invert:
             myMessage = -1.0*myMessage
 
-        self.servoPub.publish(int(myMessage))
+        self.servoPub.publish(myMessage)
+        print int(myMessage)
 
     def run(self):
 
         while not rospy.is_shutdown():
+            self.setPub()
             self.rate.sleep()    
 
 if __name__ == "__main__":

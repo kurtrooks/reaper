@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "test $1 $2" >> /home/ubuntu/output
+
+pipe=/tmp/xy
+
+if [[ ! -p $pipe ]]; then
+    echo "Reader not running"
+    exit 1
+fi
+
+
+if [[ "$1" ]]; then
+    echo "write to pipe" >> /home/ubuntu/output
+    echo "$1 $2" >$pipe
+else
+    echo "write 2? write" >> /home/ubuntu/output
+    echo $1 $2 >> $pipe
+    echo "wrote pipe" >> /home/ubuntu/output
+fi

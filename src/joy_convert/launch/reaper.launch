@@ -29,9 +29,11 @@
     <node name="pipe_reader" pkg="joy_convert" type="pipe_reader.py" output="screen" >
         <param name="pipe_name" value="/tmp/xy" />
         <param name="hz" value="20" />
-        <remap from="x" to="/x" />
-        <remap from="y" to="/y" />
+        <remap from="x" to="/image_x" />
+        <remap from="y" to="/image_y" />
     </node>
 
+    <node name="image_transform" pkg="joy_convert" type="image_transform.py" output="screen" >
+    </node>
 
 </launch>

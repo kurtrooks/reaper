@@ -160,7 +160,7 @@ install(PROGRAMS
     scripts/joy_convert.py
     scripts/sin_generator.py
     scripts/pipe_reader.py
-    scripts/image_transform.py_
+    scripts/image_transform.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
