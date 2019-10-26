@@ -161,6 +161,8 @@ install(PROGRAMS
     scripts/sin_generator.py
     scripts/pipe_reader.py
     scripts/image_transform.py
+    scripts/interp.py
+    scripts/audio_driver.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
@@ -180,6 +182,7 @@ install(PROGRAMS
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
  install(DIRECTORY
+   audio_files
    launch
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
  )

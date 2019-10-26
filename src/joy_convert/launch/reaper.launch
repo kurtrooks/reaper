@@ -12,7 +12,7 @@
         <remap from="y" to="/image_y" />
     </node>
 
-    <node name="image_transform_x" pkg="joy_convert" type="image_transform.py" output="screen" >
+    <node name="hip_ctrl" pkg="joy_convert" type="interp.py" output="screen" >
         <param name="minAngle" value="1250" />
         <param name="maxAngle" value="1800" />
         <param name="minPixel" value="0" />
@@ -22,15 +22,11 @@
         <remap from="servo" to="/hip_servo" />
     </node>
 
-    <node name="image_transform_y" pkg="joy_convert" type="image_transform.py" output="screen" >
-        <param name="minAngle" value="1250" />
-        <param name="maxAngle" value="1800" />
-        <param name="minPixel" value="0" />
-        <param name="maxPixel" value="720" /> 
 
-        <remap from="input" to="/image_y" />
-        <remap from="servo" to="/shoulder_servo" />
+    <node name="sound_ctrl" pkg="joy_convert" type="audio_driver.py" output="screen" >
+        <param name="audio_dir" value="$(find joy_convert)/audio_files" />
+        
+        <remap from="trigger_sound" to="/trigger_sound" />        
     </node>
-
 
 </launch>
