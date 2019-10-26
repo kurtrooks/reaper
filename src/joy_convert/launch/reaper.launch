@@ -1,27 +1,6 @@
 <?xml version="1.0"?>
 
 <launch>
-    <node name="joy" pkg="joy" type="joy_node" output="screen"/>
-
-    <node ns="shoulder" name="joy_convert" pkg="joy_convert" type="joy_convert.py" output="screen" >
-        <param name="chNum" value="1" />
-        <param name="minAngle" value="550" />
-        <param name="maxAngle" value="2400" />
-        <param name="invert" value="True" />
-
-        <remap from="joy" to="/joy" />
-        <remap from="servo" to="/shoulder_servo" />
-    </node>
-
-    <node ns="hip" name="joy_convert" pkg="joy_convert" type="joy_convert.py" output="screen" >
-        <param name="chNum" value="3" />
-        <param name="minAngle" value="550" />
-        <param name="maxAngle" value="2400" />
-
-        <remap from="joy" to="/joy" />
-        <remap from="servo" to="/hip_servo" />
-    </node>
-
     <node name="arduino" pkg="rosserial_python" type="serial_node.py" output="screen">
         <param name="port" value="/dev/ttyACM0" />
     </node>
@@ -33,7 +12,25 @@
         <remap from="y" to="/image_y" />
     </node>
 
-    <node name="image_transform" pkg="joy_convert" type="image_transform.py" output="screen" >
+    <node name="image_transform_x" pkg="joy_convert" type="image_transform.py" output="screen" >
+        <param name="minAngle" value="1250" />
+        <param name="maxAngle" value="1800" />
+        <param name="minPixel" value="0" />
+        <param name="maxPixel" value="1280" /> 
+
+        <remap from="input" to="/image_x" />
+        <remap from="servo" to="/hip_servo" />
     </node>
+
+    <node name="image_transform_y" pkg="joy_convert" type="image_transform.py" output="screen" >
+        <param name="minAngle" value="1250" />
+        <param name="maxAngle" value="1800" />
+        <param name="minPixel" value="0" />
+        <param name="maxPixel" value="720" /> 
+
+        <remap from="input" to="/image_y" />
+        <remap from="servo" to="/shoulder_servo" />
+    </node>
+
 
 </launch>

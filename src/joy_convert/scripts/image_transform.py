@@ -4,16 +4,18 @@ import rospy
 from sensor_msgs.msg import *
 from std_msgs.msg import *
 
+from Queue import Queue
+
 class image_transform(object):
 
     def __init__(self):
         rospy.init_node('image_transform')
         self.hz = rospy.get_param('~hz',40.0)
         self.rate = rospy.Rate(self.hz)
-        self.minAngle = rospy.get_param('~minAngle',0)
-        self.maxAngle = rospy.get_param('~maxAngle',180)
-        self.minPixel = rospy.get_param('~minAngle',0)
-        self.maxPixel = rospy.get_param('~maxAngle',1260)
+        self.minAngle = rospy.get_param('~minAngle',550)
+        self.maxAngle = rospy.get_param('~maxAngle',2500)
+        self.minPixel = rospy.get_param('~minPixel',0)
+        self.maxPixel = rospy.get_param('~maxPixel',1260)
         self.invert = rospy.get_param('~invert',False)
 
         self.halfRange = (self.maxAngle - self.minAngle) / 2.0
@@ -25,29 +27,31 @@ class image_transform(object):
 	self.myX = None
 	self.myY = None
 
-        rospy.Subscriber('image_x',UInt16,self.setX)
-        rospy.Subscriber('image_y',UInt16,self.setY)
+        rospy.Subscriber('input',UInt16,self.setX)
         self.servoPub = rospy.Publisher('servo',UInt16,queue_size=10)
 
     def setX(self,msg):
 	self.myX = msg.data
-
-    def setY(self,msg):
-	self.myY = msg.data
+        self.setPub()
 
     def interp(self,xval):
-        return xval / (self.midPixel)
+        """
+        roughly 640 is midPixel
+        so (xval / maxPixel) --> 0 to 1
+        """
+        rval = float(xval/float(self.maxPixel))
+        return rval
 
     def angleinterp(self,data):
         """
-        0-->2 input
+        0-->1 input
         """
-        data = data/2.0
-        return data/self.midAngle
+        return self.minAngle + (data*self.maxAngle - self.minAngle)
 
     def setPub(self):
-	if(self.myX is not None and self.myY is not None):
+	if(self.myX is not None):
             myMessage = self.interp(self.myX)
+            print(myMessage)
             myMessage = self.angleinterp(myMessage)
         else:
             return
@@ -56,12 +60,10 @@ class image_transform(object):
             myMessage = -1.0*myMessage
 
         self.servoPub.publish(myMessage)
-        print int(myMessage)
 
     def run(self):
 
         while not rospy.is_shutdown():
-            self.setPub()
             self.rate.sleep()    
 
 if __name__ == "__main__":
