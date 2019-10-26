@@ -20,6 +20,11 @@
 
         <remap from="input" to="/image_x" />
         <remap from="servo" to="/hip_servo" />
+
+        <!-- Debug -->
+        <remap from="setMinAngle" to="/set_hip_min" />
+        <remap from="setMaxAngle" to="/set_hip_max" />
+
     </node>
 
 
@@ -32,15 +37,24 @@
         <remap from="y_out" to="/shoulder_servo" />
 
         <remap from="soundEnable" to="/trigger_sound" />
-        <remap from="eyeEnable" to="/eyeEnable" />
-        <remap from="motionDetected" to="/motionDetected" />
-           
+        <remap from="eyeEnable" to="/eye_enable" />
+        <remap from="motionDetected" to="/motion_detected" />
+
+        <!-- Debug -->
+        <remap from="set_y_home" to="/set_shoulder_home" />
+        <remap from="set_y_point" to="/set_shoulder_point" />
+
     </node>
 
     <node name="sound_ctrl" pkg="joy_convert" type="audio_driver.py" output="screen" >
         <param name="audio_dir" value="$(find joy_convert)/audio_files" />
-        
         <remap from="trigger_sound" to="/trigger_sound" />        
     </node>
+
+    <!-- TODO
+    <node name="eye_ctrl" pkg="joy_convert" type="eye_ctrl.py" output="screen" >
+        <remap from="enable" to="/eye_enable" />
+    </node>
+    -->
 
 </launch>
