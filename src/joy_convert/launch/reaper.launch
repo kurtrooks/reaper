@@ -51,10 +51,8 @@
         <remap from="trigger_sound" to="/trigger_sound" />        
     </node>
 
-    <!-- TODO
     <node name="eye_ctrl" pkg="joy_convert" type="eye_ctrl.py" output="screen" >
         <remap from="enable" to="/eye_enable" />
     </node>
-    -->
 
 </launch>

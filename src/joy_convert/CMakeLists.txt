@@ -164,6 +164,7 @@ install(PROGRAMS
     scripts/interp.py
     scripts/audio_driver.py
     scripts/state_machine.py
+    scripts/eye_ctrl.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
