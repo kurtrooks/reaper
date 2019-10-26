@@ -28,18 +28,6 @@ ros::NodeHandle  nh;
 Servo hip_servo;
 Servo shoulder_servo;
 
-/*
-void hip_servo_cb( const std_msgs::UInt16& cmd_msg){
-  hip_servo.write(cmd_msg.data); //set servo angle, should be from 0-180  
-  digitalWrite(13, HIGH-digitalRead(13));  //toggle led  
-}
-
-void shoulder_servo_cb( const std_msgs::UInt16& cmd_msg){
-  //shoulder_servo.write(cmd_msg.data); //set servo angle, should be from 0-180  
-  digitalWrite(13, HIGH-digitalRead(13));  //toggle led  
-}
-*/
-
 void hip_servo_cb( const std_msgs::UInt16& cmd_msg){
   hip_servo.writeMicroseconds(cmd_msg.data); 
   digitalWrite(13, HIGH-digitalRead(13));  //toggle led  
