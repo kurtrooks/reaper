@@ -10,3 +10,6 @@
 # Apply voice change to input file, produce output file
 > sox input.wav output.wav pitch -600 reverb
 
+# To run reaper
+> source install/setup.bash
+> roslaunch joy_convert reaper.launch
