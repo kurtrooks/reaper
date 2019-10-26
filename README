@@ -5,7 +5,7 @@
 > rec filename.wav
 
 # To playback files w/ modulation
->  play test.wav pitch -600 reverb 
+> play filename.wav pitch -600 reverb 
 
 # Apply voice change to input file, produce output file
 > sox input.wav output.wav pitch -600 reverb
