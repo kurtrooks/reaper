@@ -9,16 +9,15 @@ class state_machine(object):
         rospy.init_node('state_machine')
         self.hz = rospy.get_param('~hz',10.0)
         self.rate = rospy.Rate(self.hz)
-        self.timeoutVal = rospy.get_param('~timeoutDuration',5.0)
-        self.timeoutDuration = rospy.Duration(self.timeoutVal)
+        self.timeoutDuration = rospy.get_param('~timeoutDuration',5.0)
+        self.yHomeVal = rospy.get_param('~y_home_val',1000)
+        self.yPointVal = rospy.get_param('~y_point_val',1500)
 
         self.motionDetected = False
         self.lastMotionTs = None 
 
         rospy.Subscriber('x_in',UInt16,self.setX)
-        rospy.Subscriber('y_in',UInt16,self.setY)
 
-        self.xPub = rospy.Publisher('x_out',UInt16,queue_size=10)
         self.yPub = rospy.Publisher('y_out',UInt16,queue_size=10)
 
         self.motionPub = rospy.Publisher('motionDetected',Bool,queue_size=10)
@@ -30,11 +29,13 @@ class state_machine(object):
             self.lastMotionTs = rospy.get_time()
             if self.motionDetected is False:
                 self.triggerSound()
-                self.setEyes(True))
+                self.setEyes(True)
+                self.yPub.publish(self.yPointVal)
             self.motionDetected = True
         else:
             self.motionDetected = False
             self.setEyes(False)
+            self.yPub.publish(self.yHomeVal)
 
     def setEyes(self,val):
         self.eyePub.publish(val)
@@ -44,11 +45,6 @@ class state_machine(object):
 
     def setX(self,msg):
         self.setMotion(True)
-        self.xPub.publish(msg)
-
-    def setY(self,msg):
-        self.setMotion(True)
-        self.yPub.publish(msg)
 
     def run(self):
         while not rospy.is_shutdown():
@@ -56,6 +52,8 @@ class state_machine(object):
             if self.motionDetected is True:
                 if rospy.get_time() - self.lastMotionTs > self.timeoutDuration:
                     self.setMotion(False)
+
+            self.motionPub.publish(self.motionDetected)
 
 if __name__ == "__main__":
     node = state_machine()

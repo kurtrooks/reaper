@@ -163,6 +163,7 @@ install(PROGRAMS
     scripts/image_transform.py
     scripts/interp.py
     scripts/audio_driver.py
+    scripts/state_machine.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
