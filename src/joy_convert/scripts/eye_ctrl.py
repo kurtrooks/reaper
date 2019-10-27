@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
+import subprocess
 from std_msgs.msg import *
 
 class eye_ctrl(object):
@@ -24,11 +25,11 @@ class eye_ctrl(object):
 
     def eyesOn(self):
         print "eyes ON"
-        # TODO
+        subprocess.call(["eyes.py", "100", "0", "0"])
 
     def eyesOff(self):
         print "eyes OFF"
-        # TODO
+        subprocess.call(["eyes.py", "0", "0", "0"])
 
     def run(self):
         while not rospy.is_shutdown():

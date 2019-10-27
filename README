@@ -1,6 +1,10 @@
 # To build ROS modules
 > catkin_make install
 
+# Dependiencies for eyes
+> sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+> eyes.py must be in the path
+
 # To record audio
 > rec filename.wav
 
