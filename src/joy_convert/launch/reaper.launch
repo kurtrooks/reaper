@@ -13,7 +13,7 @@
     </node>
 
     <node name="hip_ctrl" pkg="joy_convert" type="interp.py" output="screen" >
-        <param name="minAngle" value="1250" />
+        <param name="minAngle" value="1200" />
         <param name="maxAngle" value="1800" />
         <param name="minPixel" value="0" />
         <param name="maxPixel" value="1280" /> 
@@ -31,7 +31,7 @@
     <node name="trigger_ctrl" pkg="joy_convert" type="state_machine.py" output="screen" >
         <param name="timeout_duration" value="5.0" />
         <param name="y_home_val" value="1200" />
-        <param name="y_point_val" value="1800" />
+        <param name="y_point_val" value="2500" />
 
         <remap from="x_in" to="/hip_servo" />
         <remap from="y_out" to="/shoulder_servo" />
