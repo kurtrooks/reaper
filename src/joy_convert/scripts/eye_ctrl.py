@@ -13,6 +13,7 @@ class eye_ctrl(object):
         # Params
         self.hz = rospy.get_param('~hz',1.0)
         self.rate = rospy.Rate(self.hz)
+        self.eyeCmd = rospy.get_param('~eye_cmd','./eyes.py')
 
         # Subs
         rospy.Subscriber('enable',Bool,self.setEnable)
@@ -25,11 +26,17 @@ class eye_ctrl(object):
 
     def eyesOn(self):
         print "eyes ON"
-        subprocess.call(["eyes.py", "100", "0", "0"])
+        try:
+            subprocess.call([self.eyeCmd, "100", "0", "0"])
+        except Exception as ex:
+            print ex
 
     def eyesOff(self):
         print "eyes OFF"
-        subprocess.call(["eyes.py", "0", "0", "0"])
+        try:
+            subprocess.call([self.eyeCmd, "0", "0", "0"])
+        except Exception as ex:
+            print ex
 
     def run(self):
         while not rospy.is_shutdown():

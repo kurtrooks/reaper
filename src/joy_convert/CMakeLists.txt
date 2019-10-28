@@ -186,6 +186,7 @@ install(PROGRAMS
  install(DIRECTORY
    audio_files
    launch
+   python3
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
  )
 

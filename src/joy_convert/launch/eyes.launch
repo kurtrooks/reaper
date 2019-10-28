@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node name="eye_ctrl" pkg="joy_convert" type="eye_ctrl.py" output="screen" >
+        <param name="eye_cmd" value="$(find joy_convert)/python3/eyes.py" />
+        <remap from="enable" to="/eye_enable" />
+    </node>
+
+</launch>
