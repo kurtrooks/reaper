@@ -5,7 +5,6 @@ import subprocess
 from std_msgs.msg import *
 
 class eye_ctrl(object):
-
     def __init__(self):
 
         rospy.init_node('eye_ctrl')
@@ -17,6 +16,8 @@ class eye_ctrl(object):
 
         # Subs
         rospy.Subscriber('enable',Bool,self.setEnable)
+    
+        self.pipe='/tmp/eyepipe.fifo'
 
     def setEnable(self,msg):
         if msg.data == True:
@@ -27,14 +28,20 @@ class eye_ctrl(object):
     def eyesOn(self):
         print "eyes ON"
         try:
-            subprocess.call([self.eyeCmd, "100", "0", "0"])
+#            subprocess.call([self.eyeCmd, "100", "0", "0"])
+            with open(self.pipe, 'w') as f:
+                f.write('on')
+                f.flush()
         except Exception as ex:
             print ex
 
     def eyesOff(self):
         print "eyes OFF"
         try:
-            subprocess.call([self.eyeCmd, "0", "0", "0"])
+#            subprocess.call([self.eyeCmd, "0", "0", "0"])
+            with open(self.pipe, 'w') as f:
+                f.write('off')
+                f.flush()
         except Exception as ex:
             print ex
 

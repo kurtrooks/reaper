@@ -3,7 +3,7 @@
 
 # Dependiencies for eyes
 > sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
-> eyes.py must be in the path
+> eyes.py must be launched as a background process before controlling the eyes
 
 # To record audio
 > rec filename.wav
